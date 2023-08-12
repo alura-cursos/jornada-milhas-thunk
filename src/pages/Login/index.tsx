@@ -9,9 +9,9 @@ import banner from 'assets/login/banner.png';
 import icon from 'assets/login/icon.png';
 import styles from './styles';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { useDispatch } from 'react-redux';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { RootStackParamList } from 'src/routes';
+import { useAppDispatch } from 'src/store/hooks';
 
 export default function Login({ navigation }: DrawerScreenProps<RootStackParamList, 'Login'>) {
   const [emailOuCpf, setEmailOuCpf] = useState('');
@@ -19,7 +19,7 @@ export default function Login({ navigation }: DrawerScreenProps<RootStackParamLi
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const { criarMensagem } = useSnackbar();
   const height = useHeaderHeight();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogin = () => {
     if (!emailOuCpf) return criarMensagem.erro('Preencha um Email ou CPF');

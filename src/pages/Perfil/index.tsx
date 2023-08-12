@@ -10,13 +10,12 @@ import useSnackbar from 'src/contexts/Snackbar';
 import theme from 'src/config/theme';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { RootStackParamList } from 'src/routes';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'src/store';
 import { alterarUsuario, excluirUsuario } from 'src/store/reducers/usuario';
 import { Usuario } from 'src/types/usuario';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 
 export default function Perfil({ navigation }: DrawerScreenProps<RootStackParamList, "Perfil">) {
-  const usuarioLogado = useSelector((state: RootState) => state.usuario.usuarioLogado);
+  const usuarioLogado = useAppSelector(state => state.usuario.usuarioLogado);
   const [nome, setNome] = useState(usuarioLogado?.nome);
   const [dataNascimento, setDataNascimento] = useState(usuarioLogado?.dataNascimento);
   const [genero, setGenero] = useState(usuarioLogado?.genero);
@@ -29,7 +28,7 @@ export default function Perfil({ navigation }: DrawerScreenProps<RootStackParamL
   const [senha, setSenha] = useState(usuarioLogado?.senha);
   const [confirmarSenha, setConfirmarSenha] = useState(usuarioLogado?.senha);
   const { criarMensagem } = useSnackbar();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = () => {
     const novosDados: Partial<Usuario> = {

@@ -11,9 +11,9 @@ import useSnackbar from 'src/contexts/Snackbar';
 import styles from './styles';
 import GenderPicker from 'src/components/GenderPicker';
 import { cadastrar } from 'src/store/reducers/usuario';
-import { useDispatch } from 'react-redux';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { RootStackParamList } from 'src/routes';
+import { useAppDispatch } from 'src/store/hooks';
 
 export default function Cadastrar({ navigation }: DrawerScreenProps<RootStackParamList, 'Cadastrar'>) {
   const [nome, setNome] = useState('');
@@ -29,7 +29,7 @@ export default function Cadastrar({ navigation }: DrawerScreenProps<RootStackPar
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [leu, setLeu] = useState(false);
   const { criarMensagem } = useSnackbar();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = () => {
     if (!leu) return criarMensagem.erro('Você deve concordar com os termos de uso');

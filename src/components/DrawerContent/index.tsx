@@ -4,13 +4,12 @@ import { Button, Drawer } from 'react-native-paper';
 
 import styles from './styles';
 import theme from 'src/config/theme';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'src/store';
 import { deslogar } from 'src/store/reducers/usuario';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 
 export default function DrawerContent({ navigation }: DrawerContentComponentProps) {
-  const dispatch = useDispatch();
-  const usuarioLogado = useSelector((state: RootState) => state.usuario.usuarioLogado);
+  const dispatch = useAppDispatch();
+  const usuarioLogado = useAppSelector(state => state.usuario.usuarioLogado);
 
   const handleDeslogar = () => {
     dispatch(deslogar());

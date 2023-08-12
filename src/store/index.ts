@@ -1,6 +1,7 @@
 import { configureStore, Middleware } from '@reduxjs/toolkit';
 import usuario from './reducers/usuario';
 import viagem from './reducers/viagem';
+import filtro from './reducers/filtro';
 import createDebugger from 'redux-flipper';
 
 const middlewares: Middleware[] = [];
@@ -13,6 +14,7 @@ const store = configureStore({
   reducer: {
     usuario,
     viagem,
+    filtro
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().prepend(...middlewares)

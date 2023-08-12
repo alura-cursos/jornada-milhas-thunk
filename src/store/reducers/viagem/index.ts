@@ -41,11 +41,15 @@ const viagemSlice = createSlice({
   name: "viagem",
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(carregarDados.fulfilled, (state, { payload }) => {
-      state.viagens = payload.viagens;
-      state.paginaAtual = payload.paginaAtual;
-      state.totalPaginas = payload.totalPaginas;
-    })
+    builder
+      .addCase(carregarDados.pending, (state) => { state.buscando = true })
+      .addCase(carregarDados.fulfilled, (state, { payload }) => {
+        state.viagens = payload.viagens;
+        state.paginaAtual = payload.paginaAtual;
+        state.totalPaginas = payload.totalPaginas;
+        state.buscando = false;
+      })
+      .addCase(carregarDados.rejected, (state) => { state.buscando = false })
   }
 });
 

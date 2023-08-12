@@ -20,7 +20,7 @@ import styles from './styles';
 import { valoresPadrao } from './consts';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { RootStackParamList } from 'src/routes';
-import { carregarDados } from 'src/store/reducers/viagem/middlewares';
+import { carregarDados, carregarMaisViagens } from 'src/store/reducers/viagem/middlewares';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 
 export default function Home(props: DrawerScreenProps<RootStackParamList, "Home">) {
@@ -59,33 +59,7 @@ export default function Home(props: DrawerScreenProps<RootStackParamList, "Home"
         novoTipo === tipoAtual ? undefined : novoTipo
       );
 
-  const carregarMais = async () => {
-    // setBuscando(true);
-    // const { novasViagens, pagina } = await getViagens(paginaAtual + 1);
-    // todasAsViagens.current = [...todasAsViagens.current, ...novasViagens];
-    // startTransition(() => {
-    //   setPaginaAtual(pagina);
-    //   setViagens(viagensAtuais => [...viagensAtuais, ...novasViagens]);
-    // })
-    // setBuscando(false);
-  }
-
-  // const carregarDados = async () => {
-  //   const [viagensData, novasOrigens, novosDestinos] = await Promise.all([
-  //     getViagens(),
-  //     carregarOrigens(),
-  //     carregarDestinos(),
-  //   ]);
-  //   const { pagina, totalPaginas, novasViagens } = viagensData;
-  //   totalPaginasRef.current = totalPaginas;
-  //   todasAsViagens.current = novasViagens;
-  //   startTransition(() => {
-  //     setPaginaAtual(pagina);
-  //     setViagens(novasViagens);
-  //     setOrigens(novasOrigens);
-  //     setDestinos(novosDestinos);
-  //   })
-  // }
+  const carregarMais = () => dispatch(carregarMaisViagens(paginaAtual));
 
   const handleFiltrarPorUsuario = (
     novoFiltroPorUsuario: Filtros['filtrarPorUsuario']

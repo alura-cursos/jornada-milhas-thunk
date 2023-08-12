@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './type';
-import { carregarDados } from './middlewares';
+import { carregarDados, carregarMaisViagens } from './middlewares';
 
 const initialState: InitialState = {
   viagens: [],
@@ -23,6 +23,12 @@ const viagemSlice = createSlice({
         state.buscando = false;
       })
       .addCase(carregarDados.rejected, (state) => { state.buscando = false })
+      .addCase(carregarMaisViagens.pending, (state) => { state.buscando = true})
+      .addCase(carregarMaisViagens.fulfilled, (state, { payload }) => {
+        state.viagens.push(...payload.novasViagens);
+        state.paginaAtual = payload.pagina;
+        state.buscando = false;
+      })
   }
 });
 

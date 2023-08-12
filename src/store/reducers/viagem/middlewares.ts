@@ -20,3 +20,12 @@ export const carregarDados = createAsyncThunk(
     }
   }
 );
+
+export const carregarMaisViagens = createAsyncThunk(
+  'viagem/carregarMais',
+  async (paginaAtual: number) => {
+    const { novasViagens, pagina } = await getViagens(paginaAtual + 1);
+
+    return { novasViagens, pagina}
+  }
+)

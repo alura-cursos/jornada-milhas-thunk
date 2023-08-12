@@ -25,8 +25,6 @@ import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 
 export default function Home(props: DrawerScreenProps<RootStackParamList, "Home">) {
   const todasAsViagens = useRef<Viagem[]>([]);
-  const [origens, setOrigens] = useState<string[]>([]);
-  const [destinos, setDestinos] = useState<string[]>([]);
   const [tipo, setTipo] = useState<Filtros['tipo']>(valoresPadrao.tipo);
   const [pessoas, setPessoas] = useState<Filtros['pessoas']>(valoresPadrao.pessoas);
   const [origem, setOrigem] = useState<Filtros['origem']>(valoresPadrao.origem);
@@ -38,7 +36,8 @@ export default function Home(props: DrawerScreenProps<RootStackParamList, "Home"
   const usuarioLogado = useAppSelector(state => state.usuario.usuarioLogado);
   const dispatch = useAppDispatch();
   const { buscando, paginaAtual, totalPaginas, viagens } = useAppSelector(state => state.viagem);
-  
+  const { destinos, origens } = useAppSelector(state => state.filtro);
+
   const { cidade = '', estado = '' } = usuarioLogado || {};
   const filtros: Filtros = {
     pessoas, tipo, origem, destino, filtrarPorUsuario, dataIda, dataVolta

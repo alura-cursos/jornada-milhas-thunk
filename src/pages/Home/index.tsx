@@ -10,7 +10,6 @@ import { TipoViagem, Viagem } from 'src/types/viagem';
 import { filtrarViagens, filtrosEstaoVazios } from './utils/filtros';
 
 import banner from 'assets/home/banner.png';
-import loading from 'assets/loading.png';
 
 import { Filtros } from './types';
 import StringPicker from 'src/components/StringPicker';
@@ -225,7 +224,10 @@ export default function Home(props: DrawerScreenProps<RootStackParamList, "Home"
               <Text style={styles.buscandoText}>
                 Aguarde uns instantes, estamos viajando o mundo das milhas para encontrar a melhor solução pra você!
               </Text>
-              <Image source={loading} />
+              <Image
+                source={require('assets/buscando.gif')}
+                style={{ width: 200, height: 200 }}
+              />
             </View>
           </Modal>
         </Portal>

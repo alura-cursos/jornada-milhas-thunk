@@ -17,7 +17,7 @@ const store = configureStore({
     filtro
   },
   middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware().prepend(...middlewares)
+    getDefaultMiddleware().concat(...middlewares)
   ,
 });
 

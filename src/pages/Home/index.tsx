@@ -19,10 +19,11 @@ import useSnackbar from 'src/contexts/Snackbar';
 
 import styles from './styles';
 import { valoresPadrao } from './consts';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/store';
+import { useDispatch, useSelector } from 'react-redux';
+import store, { RootState } from 'src/store';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { RootStackParamList } from 'src/routes';
+import { carregarDados } from 'src/store/reducers/viagem';
 
 export default function Home(props: DrawerScreenProps<RootStackParamList, "Home">) {
   const totalPaginasRef = useRef<number>(1);
@@ -49,6 +50,7 @@ export default function Home(props: DrawerScreenProps<RootStackParamList, "Home"
   const mostrarViagensPorCidade = filtrarPorUsuario === 'cidade';
   const mostrarViagensPorEstado = filtrarPorUsuario === 'estado';
   const ehUltimaPagina = paginaAtual === totalPaginasRef.current;
+  const dispatch = useDispatch<typeof store.dispatch>();
 
   const trocarOrigemDestino = () => {
     const tmp = origem;
@@ -73,22 +75,22 @@ export default function Home(props: DrawerScreenProps<RootStackParamList, "Home"
     setBuscando(false);
   }
 
-  const carregarDados = async () => {
-    const [viagensData, novasOrigens, novosDestinos] = await Promise.all([
-      getViagens(),
-      carregarOrigens(),
-      carregarDestinos(),
-    ]);
-    const { pagina, totalPaginas, novasViagens } = viagensData;
-    totalPaginasRef.current = totalPaginas;
-    todasAsViagens.current = novasViagens;
-    startTransition(() => {
-      setPaginaAtual(pagina);
-      setViagens(novasViagens);
-      setOrigens(novasOrigens);
-      setDestinos(novosDestinos);
-    })
-  }
+  // const carregarDados = async () => {
+  //   const [viagensData, novasOrigens, novosDestinos] = await Promise.all([
+  //     getViagens(),
+  //     carregarOrigens(),
+  //     carregarDestinos(),
+  //   ]);
+  //   const { pagina, totalPaginas, novasViagens } = viagensData;
+  //   totalPaginasRef.current = totalPaginas;
+  //   todasAsViagens.current = novasViagens;
+  //   startTransition(() => {
+  //     setPaginaAtual(pagina);
+  //     setViagens(novasViagens);
+  //     setOrigens(novasOrigens);
+  //     setDestinos(novosDestinos);
+  //   })
+  // }
 
   const handleFiltrarPorUsuario = (
     novoFiltroPorUsuario: Filtros['filtrarPorUsuario']
@@ -110,7 +112,7 @@ export default function Home(props: DrawerScreenProps<RootStackParamList, "Home"
       setFiltrarPorUsuario(valoresPadrao.filtrarPorUsuario);
     });
 
-  useEffect(() => void carregarDados(), []);
+  useEffect(() => void dispatch(carregarDados()), []);
 
   const handleBuscar = async () => {
     setBuscando(true);

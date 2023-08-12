@@ -16,7 +16,7 @@ const initialState: InitialState = {
   buscando: false
 }
 
-const carregarDados = createAsyncThunk(
+export const carregarDados = createAsyncThunk(
   'viagem/carregarDados',
   async () => {
     const [viagensData, novasOrigens, novosDestinos] = await Promise.all([
@@ -39,7 +39,14 @@ const carregarDados = createAsyncThunk(
 const viagemSlice = createSlice({
   initialState,
   name: "viagem",
-  reducers: {}
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(carregarDados.fulfilled, (state, { payload }) => {
+      state.viagens = payload.viagens;
+      state.paginaAtual = payload.paginaAtual;
+      state.totalPaginas = payload.totalPaginas;
+    })
+  }
 });
 
 export default viagemSlice.reducer;
